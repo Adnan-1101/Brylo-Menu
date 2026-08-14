@@ -1,0 +1,869 @@
+@font-face {
+  font-family: 'Neometric';
+  src: url('assets/fonts/neometric%20regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neometric';
+  src: url('assets/fonts/neometric%20italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Landing page display face (menu.html uses Neometric) */
+@font-face {
+  font-family: 'Copperplate Gothic Std';
+  src: url('assets/fonts/copperplate.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --terracotta: #C98A5E;
+  --espresso: #4C3734;
+  --taupe: #8F7F72;
+  --platinum: #E5E4E2;
+  --font-heading: 'Neometric';
+  --font-body: 'Neometric';
+  --font-display: 'Copperplate Gothic Std', 'Copperplate', serif;
+  --nav-height: 64px;
+}
+
+/* Screen-reader-only: gives each page a real <h1> for semantics/SEO
+   without altering the visual design. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* `clip` (not `hidden`) guards against stray horizontal scroll WITHOUT
+     making the root a scroll container — `hidden` here silently breaks
+     position: sticky on .category-nav. */
+  overflow-x: clip;
+  font-family: var(--font-body);
+  background-color: var(--platinum);
+  color: var(--espresso);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+.main-header {
+  background-color: #E5E4E2;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.header-logo-svg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 10;
+  transform: scale(1.08);
+  transform-origin: center top;
+  margin-top: -1.5%;
+}
+
+/* Menu Badge */
+.menu-badge-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px;
+}
+
+.menu-badge-svg {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   Landing Page (index.html)
+   ========================================================================== */
+
+.landing-page {
+  --frame-inset: 14px;
+  --frame-corner: 20px;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Decorative frame: straight rules drawn as thin bars, with the four corners
+   supplied by an arc SVG so the join reads as a curled picture-frame detail. */
+.page-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.frame-line {
+  position: absolute;
+  background-color: var(--espresso);
+}
+
+.frame-line--top,
+.frame-line--bottom {
+  left: calc(var(--frame-inset) + var(--frame-corner));
+  right: calc(var(--frame-inset) + var(--frame-corner));
+  height: 1px;
+}
+
+.frame-line--top {
+  top: var(--frame-inset);
+}
+
+.frame-line--bottom {
+  bottom: var(--frame-inset);
+}
+
+.frame-line--left,
+.frame-line--right {
+  top: calc(var(--frame-inset) + var(--frame-corner));
+  bottom: calc(var(--frame-inset) + var(--frame-corner));
+  width: 1px;
+}
+
+.frame-line--left {
+  left: var(--frame-inset);
+}
+
+.frame-line--right {
+  right: var(--frame-inset);
+}
+
+.frame-corner {
+  position: absolute;
+  width: var(--frame-corner);
+  height: var(--frame-corner);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpath d='M0 34 A 34 34 0 0 0 34 0' fill='none' stroke='%234C3734' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.frame-corner--tl {
+  top: var(--frame-inset);
+  left: var(--frame-inset);
+}
+
+.frame-corner--tr {
+  top: var(--frame-inset);
+  right: var(--frame-inset);
+  transform: rotate(90deg);
+}
+
+.frame-corner--br {
+  bottom: var(--frame-inset);
+  right: var(--frame-inset);
+  transform: rotate(180deg);
+}
+
+.frame-corner--bl {
+  bottom: var(--frame-inset);
+  left: var(--frame-inset);
+  transform: rotate(270deg);
+}
+
+/* Centred content stack */
+.landing {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--frame-inset) + 28px) calc(var(--frame-inset) + 24px);
+  padding-left: max(calc(var(--frame-inset) + 24px), env(safe-area-inset-left));
+  padding-right: max(calc(var(--frame-inset) + 24px), env(safe-area-inset-right));
+  text-align: center;
+}
+
+/* Widths use vw (not %) so they track the viewport rather than the padded
+   content box, which keeps the proportions matching the wireframe. */
+.landing-logo {
+  width: min(46vw, 210px);
+  height: auto;
+  display: block;
+  margin-bottom: clamp(20px, 4vh, 36px);
+}
+
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  width: min(48vw, 210px);
+}
+
+.landing-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--espresso);
+  background-color: transparent;
+  color: var(--espresso);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch-first: fill on tap rather than hover */
+.landing-btn:active,
+.landing-btn:focus-visible {
+  background-color: var(--espresso);
+  color: var(--platinum);
+}
+
+.landing-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: clamp(20px, 3.5vh, 34px);
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.social-btn:active,
+.social-btn:focus-visible {
+  opacity: 0.7;
+  transform: scale(1.08);
+}
+
+.social-icon {
+  height: 44px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.social-icon--instagram {
+  height: 52px;
+}
+
+.landing-website {
+  margin-top: clamp(14px, 2.5vh, 22px);
+  color: var(--espresso);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: lowercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.landing-website:hover,
+.landing-website:active,
+.landing-website:focus-visible {
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .landing-page {
+    --frame-inset: 24px;
+    --frame-corner: 30px;
+  }
+
+  .landing-logo {
+    width: min(30vw, 290px);
+  }
+
+  .landing-actions {
+    width: min(32vw, 250px);
+  }
+
+  .landing-btn {
+    min-height: 62px;
+    font-size: 1.4rem;
+  }
+
+  .social-btn {
+    padding: 6px;
+  }
+
+  .social-icon {
+    height: 52px;
+  }
+
+  .social-icon--instagram {
+    height: 60px;
+  }
+
+  .landing-website {
+    font-size: 1.25rem;
+  }
+}
+
+/* Sticky Category Navigation */
+.category-nav {
+  position: sticky;
+  top: 0;
+  background-color: var(--platinum);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(76, 55, 52, 0.15);
+  height: var(--nav-height);
+  width: 100%;
+  overflow: hidden;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  padding: 0 20px;
+  margin: 0 auto;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  max-width: 100%;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--taupe);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 22px 0;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  background-color: transparent;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active,
+.nav-links li a:focus,
+.nav-links li a:focus-visible,
+.nav-links li a:active {
+  color: var(--espresso);
+  background-color: transparent;
+  background: transparent;
+  outline: none;
+}
+
+.nav-links li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--terracotta);
+}
+
+/* Menu Content */
+.menu-content {
+  padding: 40px 48px 100px;
+  max-width: 1040px;
+  /* Fits 4 columns of 210px + 3 * 34px gap + padding */
+  margin: 0 auto;
+}
+
+.menu-section {
+  scroll-margin-top: calc(var(--nav-height) + 40px);
+  margin-bottom: 60px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  text-align: left;
+  margin: 0 auto 20px auto;
+  max-width: 888px;
+  width: 100%;
+}
+
+.section-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.0rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--espresso);
+  margin: 0;
+}
+
+.section-subtitle {
+  font-style: italic;
+  color: var(--espresso);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  margin: 0;
+}
+
+/* Item Grid */
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 210px);
+  justify-content: center;
+  gap: 28px 16px;
+  /* row-gap column-gap */
+}
+
+.menu-item {
+  text-align: left;
+  width: 210px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.item-image {
+  width: 210px;
+  height: 281.16px;
+  aspect-ratio: 578 / 774;
+  flex: none;
+  object-fit: cover;
+  border-radius: 0;
+  background-color: #d1d0ce;
+  /* subtle skeleton color */
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.item-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.item-price {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--taupe);
+  margin: 0;
+  text-align: left;
+}
+
+/* Special Layout Items */
+.menu-item.special-item {
+  grid-column: span 2;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+}
+
+.special-item-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.special-item-content .item-image {
+  flex: 0 0 60%;
+  width: 60%;
+  aspect-ratio: 3 / 2;
+  margin-bottom: 0;
+  object-fit: cover;
+}
+
+.special-item-prices {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 10px;
+}
+
+.price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.price-group .qty {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--espresso);
+}
+
+.price-group .item-price {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--espresso);
+}
+
+.special-item-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.special-item-footer .item-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.special-item-footer .flavors {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--taupe);
+  font-size: 0.95rem;
+}
+
+.footer-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--espresso);
+  opacity: 0.2;
+}
+
+/* Desktop Dessert Layout Override matching Wireframe */
+@media (min-width: 1024px) {
+  #dessert .item-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 888px;
+    margin: 0 auto;
+  }
+
+  /* Left Block: Ice Cream Cheesecake (special-item) */
+  #dessert .menu-item.special-item {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    flex: 0 0 auto;
+  }
+
+  #dessert .special-item-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  #dessert .special-item-content .item-image {
+    width: 420px;
+    height: 260px;
+    aspect-ratio: 420 / 260;
+    object-fit: cover;
+    margin-bottom: 0;
+    flex: 0 0 420px;
+  }
+
+  #dessert .special-item-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 0;
+    margin-top: 0;
+    width: 110px;
+  }
+
+  #dessert .price-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #dessert .price-group .qty {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--espresso);
+    line-height: 1.2;
+  }
+
+  #dessert .price-group .item-price {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--espresso);
+    line-height: 1.2;
+  }
+
+  #dessert .special-item-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    width: 100%;
+  }
+
+  #dessert .special-item-footer .item-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  #dessert .footer-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--espresso);
+    opacity: 0.25;
+  }
+
+  /* Right Block: Mini Almond French Toast (tall-item) */
+  #dessert .menu-item.tall-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 200px;
+    height: auto;
+    aspect-ratio: auto;
+    flex: 0 0 200px;
+  }
+
+  #dessert .menu-item.tall-item .item-image {
+    width: 200px;
+    height: 260px;
+    aspect-ratio: 200 / 260;
+    object-fit: cover;
+    margin-bottom: 14px;
+  }
+
+  #dessert .menu-item.tall-item .item-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    text-align: left;
+  }
+
+  #dessert .menu-item.tall-item .item-price {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--taupe);
+    margin: 0;
+    text-align: left;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* Tablet Portrait (768px–1023px) */
+  .item-grid {
+    grid-template-columns: repeat(3, 210px);
+    justify-content: center;
+    gap: 28px 16px;
+  }
+
+  .menu-content {
+    padding: 36px 32px 90px;
+  }
+
+  .section-header {
+    max-width: 662px;
+    /* 3 * 210px + 2 * 16px gap = 662px */
+  }
+
+  .main-header {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .header-logo-svg {
+    transform: scale(1.18);
+    transform-origin: center top;
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* Smartphones (Portrait - below 768px) */
+  /* Fluid columns capped at 324px: renders identically to the old fixed
+     2x155px at >=360px wide, but shrinks instead of overflowing on 320px
+     phones (2*155 + 14 gap + 28 padding = 352px, wider than the screen). */
+  .item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: center;
+    gap: 20px 14px;
+    max-width: 324px;
+    margin: 0 auto;
+  }
+
+  .menu-content {
+    padding: 24px 14px 80px;
+  }
+
+  .menu-item {
+    width: 100%;
+    height: auto;
+  }
+
+  .item-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 578 / 774;
+    flex: none;
+    margin-bottom: 8px;
+  }
+
+  .menu-item.special-item {
+    grid-column: span 2;
+    width: 100%;
+    max-width: 324px;
+    /* Spans 2 columns: 2 * 155px + 14px gap */
+    height: auto;
+    aspect-ratio: auto;
+    margin: 0 auto;
+  }
+
+  .special-item-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .special-item-content .item-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    flex: none;
+  }
+
+  .special-item-prices {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 4px;
+    gap: 10px;
+  }
+
+  .special-item-footer {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .footer-line {
+    display: none;
+  }
+
+  .nav-links {
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .nav-links li a {
+    font-size: 0.85rem;
+    padding: 16px 0;
+  }
+
+  .section-header {
+    max-width: 324px;
+  }
+
+  .section-header h2 {
+    font-size: 0.95rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .item-name {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+
+  .item-price {
+    font-size: 0.8rem;
+  }
+
+  /* Mobile Header Sizing */
+  .main-header {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 0;
+    padding: 0 0 8vw;
+  }
+
+  .header-logo-svg {
+    width: 100%;
+    transform: scale(1.6);
+    transform-origin: center top;
+    margin-top: -2%;
+  }
+
+  .menu-badge-container {
+    padding: 20px 16px;
+  }
+
+  .menu-badge-svg {
+    width: 190px;
+  }
+}
