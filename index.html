@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brylo House</title>
+  <meta name="description" content="Brylo House - specialty coffee, matcha and desserts. View our menu or join the loyalty programme.">
+  <meta name="theme-color" content="#E5E4E2">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/copperplate.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css?v=1.3">
+</head>
+
+<body class="landing-page">
+  <div class="page-frame" aria-hidden="true">
+    <span class="frame-line frame-line--top"></span>
+    <span class="frame-line frame-line--right"></span>
+    <span class="frame-line frame-line--bottom"></span>
+    <span class="frame-line frame-line--left"></span>
+    <span class="frame-corner frame-corner--tl"></span>
+    <span class="frame-corner frame-corner--tr"></span>
+    <span class="frame-corner frame-corner--br"></span>
+    <span class="frame-corner frame-corner--bl"></span>
+  </div>
+
+  <main class="landing">
+    <h1 class="visually-hidden">Brylo House</h1>
+    <img src="assets/logo.svg" alt="The Brylo House" class="landing-logo">
+
+    <nav class="landing-actions">
+      <a href="menu.html" class="landing-btn">Menu</a>
+      <a href="https://farahcard.com/business/customer-registration-form/K8vR2mXq7LpN4sJh9WcT6B" target="_blank"
+        rel="noopener noreferrer" class="landing-btn">Loyalty</a>
+    </nav>
+
+    <div class="landing-social">
+      <a href="https://www.instagram.com/brylohouse.ae/" target="_blank" rel="noopener noreferrer" class="social-btn"
+        aria-label="Brylo House on Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" class="social-icon social-icon--instagram">
+      </a>
+      <a href="https://www.tiktok.com/@brylohouse.ae" target="_blank" rel="noopener noreferrer" class="social-btn"
+        aria-label="Brylo House on TikTok">
+        <img src="assets/Tik tok.svg" alt="TikTok" class="social-icon social-icon--tiktok">
+      </a>
+    </div>
+
+    <a href="https://brylo.ae" target="_blank" rel="noopener noreferrer" class="landing-website">brylo.ae</a>
+  </main>
+
+  <script>
+    document.querySelectorAll('.landing-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const isExternal = this.getAttribute('target') === '_blank';
+
+        this.classList.add('is-active');
+
+        setTimeout(() => {
+          if (isExternal) {
+            window.open(href, '_blank', 'noopener,noreferrer');
+            this.classList.remove('is-active');
+          } else {
+            window.location.href = href;
+          }
+        }, 180);
+      });
+    });
+
+    window.addEventListener('pageshow', () => {
+      document.querySelectorAll('.landing-btn').forEach(btn => btn.classList.remove('is-active'));
+    });
+  </script>
+</body>
+
+</html>
