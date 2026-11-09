@@ -114,4 +114,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial check on page load
   updateActiveLink();
+
+  // Tap-to-toggle item descriptions on touch devices (no hover available).
+  // Tapping an item shows its tooltip; tapping elsewhere or another item closes it.
+  const menuItems = document.querySelectorAll('.menu-item[data-desc]');
+  menuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const wasOpen = item.classList.contains('show-desc');
+      menuItems.forEach(other => other.classList.remove('show-desc'));
+      if (!wasOpen) {
+        item.classList.add('show-desc');
+        e.stopPropagation();
+      }
+    });
+  });
+  document.addEventListener('click', () => {
+    menuItems.forEach(item => item.classList.remove('show-desc'));
+  });
 });
