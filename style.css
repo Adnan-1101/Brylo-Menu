@@ -479,6 +479,102 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative;
+  outline: none;
+}
+
+/* Hover/tap description tooltip: pulled from data-desc via CSS content so no
+   extra markup is needed per item, and so it never participates in layout. */
+.menu-item::after {
+  content: attr(data-desc);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: 260px;
+  max-width: 85vw;
+  padding: 10px 14px;
+  background-color: var(--espresso);
+  color: var(--platinum);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 50;
+}
+
+/* Small downward-pointing arrow anchoring the tooltip to its item */
+.menu-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--espresso);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 50;
+}
+
+.menu-item:hover::after,
+.menu-item:hover::before,
+.menu-item:focus::after,
+.menu-item:focus::before,
+.menu-item.show-desc::after,
+.menu-item.show-desc::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.menu-item.show-desc::before {
+  transform: translateX(-50%);
+}
+
+/* On narrow screens an item-anchored tooltip can run off either edge of the
+   viewport (items sit close to the screen edge in a 2-column grid), so it
+   switches to a fixed bottom sheet instead: always fully visible, same
+   width regardless of which item was tapped. */
+@media (max-width: 767px) {
+  .menu-item::before {
+    display: none;
+  }
+
+  .menu-item::after {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+    top: auto;
+    width: auto;
+    max-width: none;
+    font-size: 0.85rem;
+    padding: 14px 16px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    transform: translateY(10px);
+    z-index: 200;
+  }
+
+  .menu-item:hover::after,
+  .menu-item:focus::after,
+  .menu-item.show-desc::after {
+    transform: translateY(0);
+  }
 }
 
 .item-image {
